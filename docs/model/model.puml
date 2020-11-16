@@ -1,0 +1,123 @@
+@startuml
+title 料金計算
+
+namespace domain {
+    namespace price {
+        class Fare {
+            Amount
+            Price plus( SuperExpressSurcharge )
+        }
+        class SuperExpressSurcharge {
+            Amount
+        }
+        class TotalPriceCalculationDomainService {
+            {static} TotalPrice calculate( Fare, SuperExpressSurcharge, Passenger, ComplimentaryPassenger )
+        }
+        class Passenger {
+            Children
+            Adults
+            ChargedPassenger exclude( ComplimentaryPassenger )
+        }
+        class ChargedPassenger {
+            Children
+            Adults
+        }
+        class ComplimentaryPassenger {
+            Children
+            Adults
+        }
+        class Price {
+            Amount
+            ChildPrice forChild()
+            AdultPrice forAdult()
+        }
+        class ChildPrice {
+            Amount
+            ChildPrice forRoundTrip()
+            TotalChildPrice mulitply( Children )
+        }
+        class AdultPrice {
+            Amount
+            AdultPrice forRoundTrip()
+            TotalAdultPrice multiply( Adults )
+        }
+        class TotalChildPrice {
+            Amount
+            TotalPrice plus( TotalAdultPrice )
+        }
+        class TotalAdultPrice {
+            Amount
+        }
+        class TotalPrice {
+            Amount
+        }
+
+        ' 請求対象の乗客数を計算する
+        TotalPriceCalculationDomainService -d-> Passenger
+        TotalPriceCalculationDomainService -d-> ComplimentaryPassenger
+        Passenger -r-> ComplimentaryPassenger
+        Passenger -d-> ChargedPassenger: create
+
+        ' 1 人あたりの料金を計算する
+        TotalPriceCalculationDomainService -u-> Fare
+        TotalPriceCalculationDomainService -u-> SuperExpressSurcharge
+        Fare -r-> SuperExpressSurcharge
+        Fare -d-> Price: create
+
+        ' 子供 / 大人 1 人あたりの料金を計算する
+        TotalPriceCalculationDomainService -l-> Price
+        Price -d-> ChildPrice: create
+        Price -d-> AdultPrice: create
+
+        ' 子供 / 大人 のトータル料金を計算する
+        ChildPrice -d-> TotalChildPrice: create
+        ChildPrice -d-> ChargedPassenger
+        AdultPrice -d-> TotalAdultPrice: create
+        AdultPrice -d-> ChargedPassenger
+        TotalChildPrice -r-> TotalAdultPrice
+
+        ' 子供と大人合わせたトータル料金を計算する
+        TotalChildPrice -d-> TotalPrice: create
+    }
+
+    namespace common {
+        class Amount
+        class Children
+        class Adults
+        class Numbers
+        class DepartureDate {
+            LocalDate
+        }
+        enum Destination {
+            新大阪
+            姫路
+        }
+        enum SeatType {
+            自由席
+            指定席
+        }
+        enum TrainType {
+            のぞみ
+            ひかり
+        }
+        enum TripType {
+            片道
+            往復
+        }
+
+        Amount -[hidden]r- Adults
+        Adults -[hidden]r- Children
+        Children -[hidden]r- DepartureDate
+        DepartureDate -[hidden]r- Destination
+        Destination -[hidden]r- SeatType
+        SeatType -[hidden]r- TrainType
+        TrainType -[hidden]r- TripType
+
+        Children -d-> Numbers
+        Adults -d-> Numbers
+    }
+
+    domain.price.TotalPrice -[hidden]d- domain.common.Amount
+}
+
+@enduml

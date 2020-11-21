@@ -1,6 +1,15 @@
 @startuml
 title 料金計算
 
+skinparam package {
+    BackgroundColor d8e7fe
+}
+
+skinparam class {
+    BorderColor black
+    BackgroundColor white
+}
+
 namespace domain {
     namespace price {
         class Fare {

@@ -6,5 +6,5 @@ import lombok.Setter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SuperExpressSurchargeCalculationResponse {
-  @Getter @Setter private int superExpressSurcharge;
+  @Getter @Setter private int value;
 }

@@ -41,6 +41,6 @@ public class FareRepositoryImpl implements FareRepository {
                         InfrastructureUtility.getChildren(passenger),
                         InfrastructureUtility.getAdults(passenger),
                         InfrastructureUtility.getDepartureMonthDay(departureDate)))
-                .getAmountValue()));
+                .getValue()));
   }
 }

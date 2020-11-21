@@ -40,6 +40,6 @@ public class SuperExpressSurchargeRepositoryImpl implements SuperExpressSurcharg
                         InfrastructureUtility.getChildren(passenger),
                         InfrastructureUtility.getAdults(passenger),
                         InfrastructureUtility.getDepartureMonthDay(departureDate)))
-                .getSuperExpressSurcharge()));
+                .getValue()));
   }
 }

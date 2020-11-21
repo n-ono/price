@@ -5,5 +5,5 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public class PriceCalculationResponse {
-  @Getter private final int price;
+  @Getter private final int value;
 }

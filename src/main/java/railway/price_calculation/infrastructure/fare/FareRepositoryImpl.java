@@ -20,7 +20,7 @@ import java.util.Objects;
 @AllArgsConstructor
 public class FareRepositoryImpl implements FareRepository {
   public static final String URL =
-      "http://fare:8080/fare_calculation/calculate?destination={destination}&trip-type={tripType}&children={children}&adults={adults}&departure-month-day={departureMonthDay}";
+      "http://fare-api.fare.internal:8080/fare_calculation/calculate?destination={destination}&trip-type={tripType}&children={children}&adults={adults}&departure-month-day={departureMonthDay}";
 
   @Autowired private final RestTemplate restTemplate;
 

@@ -17,7 +17,7 @@ import java.util.Objects;
 @AllArgsConstructor
 public class SuperExpressSurchargeRepositoryImpl implements SuperExpressSurchargeRepository {
   public static final String URL =
-      "http://super-express-surcharge:8080/super_express_surcharge_calculation/calculate?train-type={trainType}&seat-type={seatType}&destination={destination}&children={children}&adults={adults}&departure-month-day={departureMonthDay}";
+      "http://super-express-surcharge-api.super-express-surcharge.internal:8080/super_express_surcharge_calculation/calculate?train-type={trainType}&seat-type={seatType}&destination={destination}&children={children}&adults={adults}&departure-month-day={departureMonthDay}";
 
   @Autowired private final RestTemplate restTemplate;
 

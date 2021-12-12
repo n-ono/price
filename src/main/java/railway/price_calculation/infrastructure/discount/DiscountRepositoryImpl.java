@@ -19,7 +19,7 @@ import java.util.Objects;
 @AllArgsConstructor
 public class DiscountRepositoryImpl implements DiscountRepository {
   public static final String URL =
-      "http://discount:8080/discount_calculation/calculate-complimentary-numbers?children={children}&adults={adults}";
+      "http://discount-api.discount.internal:8080/discount_calculation/calculate-complimentary-numbers?children={children}&adults={adults}";
 
   @Autowired private final RestTemplate restTemplate;
 
